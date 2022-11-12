@@ -10,11 +10,16 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.util.Objects;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @Entity
 @Table(name = "currencies")
 @Access(AccessType.FIELD)
 public class Currency {
+
+    private static final Pattern ALPHA_CODE_PATTERN = Pattern.compile("[A-Z]{3}");
 
     @Id
     @Column(name = "iso_4217_num_code", nullable = false)
@@ -29,7 +34,19 @@ public class Currency {
     public static @NonNull Currency createValidated(short numericCode,
                                                     @NonNull String alphabeticCode,
                                                     @NonNull String name) {
-        throw new UnsupportedOperationException();
+        Objects.requireNonNull(alphabeticCode);
+        Objects.requireNonNull(name);
+
+        if (numericCode < 0 || numericCode > 999) {
+            throw new IllegalArgumentException("Invalid ISO 4217 numeric code: " + numericCode);
+        }
+
+        Matcher alphaCodeMatcher = ALPHA_CODE_PATTERN.matcher(alphabeticCode);
+        if (!alphaCodeMatcher.matches()) {
+            throw new IllegalArgumentException("Invalid ISO 4217 alphabetic code: " + alphabeticCode);
+        }
+
+        return new Currency(numericCode, alphabeticCode, name);
     }
 
     public static @NonNull Currency createUnvalidated(short numericCode,
