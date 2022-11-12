@@ -32,6 +32,10 @@ public class Currency {
         this.name = name;
     }
 
+    protected Currency() {
+        // JPA requirement, protected is OK per spec
+    }
+
     public short getNumericCode() {
         return numericCode;
     }
