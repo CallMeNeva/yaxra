@@ -26,6 +26,18 @@ public class Currency {
     @Column(name = "name", length = 30, nullable = false)
     private @NonNull String name;
 
+    public static @NonNull Currency createValidated(short numericCode,
+                                                    @NonNull String alphabeticCode,
+                                                    @NonNull String name) {
+        throw new UnsupportedOperationException();
+    }
+
+    public static @NonNull Currency createUnvalidated(short numericCode,
+                                                      @NonNull String alphabeticCode,
+                                                      @NonNull String name) {
+        return new Currency(numericCode, alphabeticCode, name);
+    }
+
     private Currency(short numericCode, @NonNull String alphabeticCode, @NonNull String name) {
         this.numericCode = numericCode;
         this.alphabeticCode = alphabeticCode;
