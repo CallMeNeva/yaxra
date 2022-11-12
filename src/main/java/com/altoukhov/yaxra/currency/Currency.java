@@ -70,7 +70,8 @@ public class Currency {
     }
 
     public @NonNull String getFormattedNumericCode() {
-        throw new UnsupportedOperationException();
+        // TODO: This is probably very slow, try other solutions
+        return String.format("%03d", numericCode);
     }
 
     public @NonNull String getAlphabeticCode() {
