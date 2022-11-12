@@ -11,6 +11,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.stream.Stream;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
 import static org.assertj.core.api.Assertions.assertThatNoException;
 import static org.junit.jupiter.params.provider.Arguments.arguments;
@@ -59,6 +60,28 @@ class CurrencyTests {
                     arguments((short) 840, "USD"),
                     arguments((short) 0, "FOO"),
                     arguments((short) 999, "BAR")
+            );
+        }
+    }
+
+    @Nested
+    class NumericCodeFormatting {
+
+        @ParameterizedTest
+        @MethodSource("provideArguments")
+        void formatsAsExpected(short numericCode, String expectedFormatting) {
+            Currency currency = Currency.createUnvalidated(numericCode, "", "");
+
+            assertThat(currency.getFormattedNumericCode())
+                    .isEqualTo(expectedFormatting);
+        }
+
+        Stream<Arguments> provideArguments() {
+            return Stream.of(
+                    arguments((short) 0, "000"),
+                    arguments((short) 5, "005"),
+                    arguments((short) 50, "050"),
+                    arguments((short) 500, "500")
             );
         }
     }
