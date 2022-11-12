@@ -26,6 +26,12 @@ public class Currency {
     @Column(name = "name", length = 30, nullable = false)
     private @NonNull String name;
 
+    private Currency(short numericCode, @NonNull String alphabeticCode, @NonNull String name) {
+        this.numericCode = numericCode;
+        this.alphabeticCode = alphabeticCode;
+        this.name = name;
+    }
+
     public short getNumericCode() {
         return numericCode;
     }
