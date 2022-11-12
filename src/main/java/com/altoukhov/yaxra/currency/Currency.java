@@ -40,12 +40,12 @@ public class Currency {
 
     @Override
     public boolean equals(Object obj) {
-        throw new UnsupportedOperationException();
+        return obj instanceof Currency that && this.numericCode == that.numericCode;
     }
 
     @Override
     public int hashCode() {
-        throw new UnsupportedOperationException();
+        return Short.hashCode(numericCode);
     }
 
     @Override
