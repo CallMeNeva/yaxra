@@ -69,6 +69,10 @@ public class Currency {
         return numericCode;
     }
 
+    public @NonNull String getFormattedNumericCode() {
+        throw new UnsupportedOperationException();
+    }
+
     public @NonNull String getAlphabeticCode() {
         return alphabeticCode;
     }
