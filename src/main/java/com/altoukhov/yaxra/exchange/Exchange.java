@@ -30,6 +30,36 @@ public class Exchange {
     @Column(name = "date", nullable = false)
     private @NonNull LocalDate date;
 
+    public static @NonNull Exchange createValidated(@NonNull Currency baseCurrency,
+                                                    @NonNull Currency targetCurrency,
+                                                    @NonNull LocalDate date) {
+        Objects.requireNonNull(baseCurrency);
+        Objects.requireNonNull(targetCurrency);
+        Objects.requireNonNull(date);
+
+        if (baseCurrency.equals(targetCurrency)) {
+            throw new IllegalArgumentException("Base and target currencies must not be equal");
+        }
+
+        return new Exchange(baseCurrency, targetCurrency, date);
+    }
+
+    public static @NonNull Exchange createUnvalidated(@NonNull Currency baseCurrency,
+                                                      @NonNull Currency targetCurrency,
+                                                      @NonNull LocalDate date) {
+        return new Exchange(baseCurrency, targetCurrency, date);
+    }
+
+    private Exchange(@NonNull Currency baseCurrency, @NonNull Currency targetCurrency, @NonNull LocalDate date) {
+        this.baseCurrency = baseCurrency;
+        this.targetCurrency = targetCurrency;
+        this.date = date;
+    }
+
+    protected Exchange() {
+        // JPA requirement, protected is OK per spec
+    }
+
     public @NonNull Currency getBaseCurrency() {
         return baseCurrency;
     }
