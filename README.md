@@ -35,3 +35,16 @@
   Status codes:
   * `201 Created` if the provided entity is valid and was successfully saved
   * `422 Unprocessable Entity` if the provided entity is not valid and therefore cannot be saved
+
+* `GET /rates/{n}/{date}` returns exchange rates. `{n}` must be a valid base currency numeric code, `{date}` must be 
+  formatted as per ISO 8601. Example: `GET /rates/840/2000-01-01`
+  ```json
+  {
+    "376": 3.4308,
+    "978": 0.96117
+  }
+  ```
+  Status codes:
+  * `400 Bad Request` if either of the base currency ID or formatted date is invalid (see other endpoints' docs)
+  * `200 OK` on successful fetch (lack of data in response to a well-formed request returns an empty JSON object and 
+    `200 OK` as well)
