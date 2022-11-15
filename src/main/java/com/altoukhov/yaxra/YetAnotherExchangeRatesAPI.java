@@ -4,10 +4,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class YaxraApplication {
+public class YetAnotherExchangeRatesAPI {
 
     public static void main(String[] args) {
-        SpringApplication.run(YaxraApplication.class, args);
+        SpringApplication.run(YetAnotherExchangeRatesAPI.class, args);
     }
-
 }
