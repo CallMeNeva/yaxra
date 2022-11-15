@@ -1,3 +1,5 @@
+:warning: **This project is currently WIP**
+
 ## Usage
 * `GET /currencies` returns all supported currencies. Example:
   ```json
