@@ -14,4 +14,9 @@ public final class TestUtils {
                 .suppress(Warning.SURROGATE_KEY)
                 .verify();
     }
+
+    public static void verifyEqualsFor(Class<?> clazz) {
+        EqualsVerifier.forClass(clazz)
+                .verify();
+    }
 }
