@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
@@ -15,7 +17,9 @@ import java.util.Optional;
 
 import static java.util.stream.Collectors.toMap;
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
+import static org.springframework.http.HttpStatus.CREATED;
 import static org.springframework.http.HttpStatus.OK;
+import static org.springframework.http.HttpStatus.UNPROCESSABLE_ENTITY;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @RestController
@@ -47,6 +51,18 @@ public class CurrencyController {
             return ResponseEntity.of(dto);
         } catch (NumberFormatException nfe) {
             return new ResponseEntity<>(BAD_REQUEST);
+        }
+    }
+
+    @PostMapping(consumes = APPLICATION_JSON_VALUE)
+    public ResponseEntity<Void> create(@RequestBody CurrencyPostDTO dto) {
+        try {
+            Currency entity = Currency.createValidated(dto.numCode(), dto.alphaCode(), dto.name());
+            repository.save(entity);
+
+            return new ResponseEntity<>(CREATED);
+        } catch (IllegalArgumentException iae) {
+            return new ResponseEntity<>(UNPROCESSABLE_ENTITY);
         }
     }
 }
