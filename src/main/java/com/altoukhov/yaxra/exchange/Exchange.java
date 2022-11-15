@@ -11,13 +11,18 @@ import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import java.io.Serial;
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
 @Embeddable
 @Access(AccessType.FIELD)
-public class Exchange {
+public class Exchange implements Serializable {
+
+    @Serial
+    private static final long serialVersionUID = -1524445650210118461L;
 
     @ManyToOne
     @JoinColumn(name = "base_num_code", nullable = false)
