@@ -50,3 +50,6 @@
   * `400 Bad Request` if either of the base currency ID or formatted date is invalid (see other endpoints' docs)
   * `200 OK` on successful fetch (lack of data in response to a well-formed request returns an empty JSON object and 
     `200 OK` as well)
+
+## Setup
+*Coming soon™*
